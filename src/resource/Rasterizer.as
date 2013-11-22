@@ -44,7 +44,7 @@ package resource
 			_mc.addEventListener(Event.ENTER_FRAME,onEnterFrame)
 		}
 		private function onEnterFrame(e:Event):void{
-			var a:BitmapData = new BitmapData(e.target.width,e.target.height,true);
+			var a:BitmapData = new BitmapData(e.target.width,e.target.height,true, 0x00ffffff);
 			a.draw(e.target as MovieClip)
 			_frameBuffer.push(a)
 			if(e.target.currentFrame==e.target.totalFrames){

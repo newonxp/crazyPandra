@@ -2,10 +2,12 @@ package
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 
 	import resource.Rasterizer;
+	import resource.Resource;
 	import resource.ResourceManager;
 	import resource.ResourcePreloader;
 
@@ -15,6 +17,11 @@ package
 		private static var _resources:ResourceManager
 		private static var _resourcePreloader:ResourcePreloader
 		private static var _rasterizer:Rasterizer
+
+
+
+		private var _state:int=0
+		private var _bitmap:Bitmap
 		public function Game()
 		{
 			super();
@@ -30,6 +37,10 @@ package
 			_resourcePreloader.load()
 		}
 		private function allLoaded():void{
+			var mc:MovieClip = _resources.get_img("swf/star.swf@star").data as MovieClip
+			mc.x=10
+			mc.y=10
+			addChild(mc)
 			_rasterizer = new Rasterizer(rasterized)
 			_rasterizer.start()
 			//_scene = new Scene()
@@ -37,9 +48,22 @@ package
 		}
 
 		private function rasterized():void{
-			var bmd:BitmapData=_resources.get_img("swf/star.swf@star").data[10] as BitmapData
-			var bitmap:Bitmap = new Bitmap(bmd)
-			addChild(bitmap)
+			addEventListener(Event.ENTER_FRAME,test)
+		}
+		private function test(e:Event):void{
+			if(_bitmap){
+				removeChild(_bitmap)
+			}
+			var res:Resource=_resources.get_img("swf/star.swf@star")
+			var bmd:BitmapData=res.data[_state] as BitmapData
+			_bitmap= new Bitmap(bmd)
+			_bitmap.x=100
+			_bitmap.y=100
+			addChild(_bitmap)
+			_state++
+			if(_state>=res.data.length){
+				_state=0
+			}
 		}
 		public static function get resources():ResourceManager
 		{
