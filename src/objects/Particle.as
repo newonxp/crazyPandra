@@ -8,45 +8,48 @@ package objects
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 
-	public class Particle {
+	public class Particle
+	{
 		public var x:Number;
 		public var y:Number;
 		public var rotation:Number
 		public var velX:Number;
 		public var velY:Number;
 		private var rectangle:Shape
-		private var bmd:BitmapData 
+		private var bmd:BitmapData
 		private var _bmds:Vector.<BitmapData>
-		private var _frame:int = 0
+		private var _frame:int=0
 		private var _rect:Rectangle
-		public function Particle(x:Number, y:Number, velX:Number, velY:Number,bmds:Vector.<BitmapData>) {
-			_bmds =bmds
 
-			this.x = x;
-			this.y = y;
+		public function Particle(x:Number, y:Number, velX:Number, velY:Number, bmds:Vector.<BitmapData>)
+		{
+			_bmds=bmds
+			this.x=x;
+			this.y=y;
 			this.rotation=0
-			this.velX = velX;
-			this.velY = velY;
-			_rect = new Rectangle(this.x,this.y,_bmds[0].width,bmds[0].height)
+			this.velX=velX;
+			this.velY=velY;
+			_rect=new Rectangle(this.x, this.y, _bmds[0].width, bmds[0].height)
 		}
 
 
 		public function updateAndDraw(toBitmapData:BitmapData):void
 		{
 			//_frame++
-			if(_frame==2){
+			if (_frame == 2)
+			{
 				_frame=0
 			}
-			this.x += velX;
-			this.y += velY;
+			this.x+=velX;
+			this.y+=velY;
 			this.rotation+=0.01
 			_rect.x=this.x
 			_rect.y=this.y
 			//toBitmapData.setPixel(this.x,this.y,0xFFFFFF);
-			var m:Matrix = new Matrix();
+			var m:Matrix=new Matrix();
 			m.rotate(rotation);
 			m.translate(this.x, this.y);
-			toBitmapData.draw(_bmds[_frame],m)
+			toBitmapData.draw(_bmds[_frame], m)
 		}
 
 	}

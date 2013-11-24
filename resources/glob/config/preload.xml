@@ -1,6 +1,5 @@
 <preload>
-	<img id="img/spritesheet.png"/>
+	<img id="img/pic.jpg"/>
 	<img id="swf/star.swf"/>
-	<xml id="xml/spritesheet.xml"/>
 	<xml id="config/rasterize.xml"/>
 </preload>
